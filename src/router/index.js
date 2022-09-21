@@ -3,10 +3,20 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = []
+const routes = [
+  {
+    path: '/register',
+    component: () => import('@/views/register')
+    // webpack提供的improt函数来路由懒加载导入组件
+    // 懒加载是当路径切换到reg页面才加载组件对应代码
+    // 好处就是让首页加载的体积更小，加载更快
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login')
+  }
+]
 
-const router = new VueRouter({
-  routes
-})
+const router = new VueRouter({ routes })
 
 export default router
