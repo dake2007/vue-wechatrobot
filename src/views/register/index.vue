@@ -6,22 +6,22 @@
       <!-- 标题的盒子 -->
       <div class="title-box"></div>
       <!-- 注册的表单区域 -->
-      <el-form :model="form" ref="form" :rules="rulesObj">
+      <el-form :model="regForm" :rules="regRules" ref="regRef">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+          <el-input v-model="regForm.username" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input type="password" v-model="form.password" placeholder="请输入密码"></el-input>
+          <el-input v-model="regForm.password" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <!-- 确认密码 -->
         <el-form-item prop="repassword">
-          <el-input type="password" v-model="form.repassword" placeholder="请再次确认密码"></el-input>
+          <el-input v-model="regForm.repassword" type="password" placeholder="请再次确认密码"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="btn-reg" type="primary" @click="registerFn">注册</el-button>
-          <el-link type="info">去登录</el-link>
+          <el-button type="primary" class="btn-reg" @click="regNewUserFn">注册</el-button>
+          <el-link type="info" @click="$router.push('/login')">去登录</el-link>
         </el-form-item>
       </el-form>
     </div>
@@ -29,48 +29,66 @@
 </template>
 
 <script>
+import { registerAPI } from '@/api'
 export default {
   name: 'my-register',
   data () {
-    const samePwdFn = (rule, value, callback) => {
-      if (value !== this.form.password) {
-        callback(new Error('两次输入的密码不匹配'))
+    const samePwd = (rule, value, callback) => {
+      if (value !== this.regForm.password) {
+        // 如果验证失败，则调用 回调函数时，指定一个 Error 对象。
+        callback(new Error('两次输入的密码不一致!'))
       } else {
+        // 如果验证成功，则直接调用 callback 回调函数即可。
         callback()
       }
     }
     return {
-      form: {
-        // 表单的数据对象
+      // 注册表单的数据对象
+      regForm: {
         username: '',
         password: '',
         repassword: ''
       },
-      rulesObj: {
+      // 注册表单的验证规则对象
+      regRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          {
+            pattern: /^[a-zA-Z0-9]{1,10}$/,
+            message: '用户名必须是1-10的大小写字母数字',
+            trigger: 'blur'
+          }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { pattern: /^[\S]{6,12}$/, message: '密码必须是6到12位', trigger: 'blur' }
+          {
+            pattern: /^\S{6,15}$/,
+            message: '密码必须是6-15的非空字符',
+            trigger: 'blur'
+          }
         ],
         repassword: [
           { required: true, message: '请再次输入密码', trigger: 'blur' },
-          { pattern: /^[\S]{6,12}$/, message: '密码必须是6到12位', trigger: 'blur' },
-          { validator: samePwdFn, trigger: 'blur' }
+          { pattern: /^\S{6,15}$/, message: '密码必须是6-15的非空字符', trigger: 'blur' },
+          { validator: samePwd, trigger: 'blur' }
         ]
       }
     }
   },
   methods: {
-    registerFn () {
-      // js兜底校验
-      this.$refs.form.validate(valid => {
+    // 注册新用户
+    regNewUserFn () {
+      // 进行表单预验证
+      this.$refs.regRef.validate(async valid => {
         if (valid) {
-          console.log(this.form)
+          console.log(this.regForm)
+          const { data: res } = await registerAPI(this.regForm)
+          console.log(res)
+          if (res.status !== 0) return this.$message.error(res.message)
+          this.$message.success(res.message)
+          this.$router.push('/login')
         } else {
-          return false // 阻止默认提交行为(表单下面红色提示会自动弹出)
+          return false
         }
       })
     }

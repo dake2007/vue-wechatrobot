@@ -1,11 +1,12 @@
 import request from '@/utils/request'
 import qs from 'qs'
-let param = {
-  username: 'ddddddd',
-  password: 'kaokaokao'
-}
-param = qs.stringify(param)
-export const registerAPI = () => {
+
+export const registerAPI = ({ username, password }) => {
+  let param = {
+    username,
+    password
+  }
+  param = qs.stringify(param)
   return request({
     url: 'api/register',
     method: 'post',

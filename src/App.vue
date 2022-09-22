@@ -4,12 +4,8 @@
 </template>
 
 <script>
-import { registerAPI } from './api'
 export default {
-  async created () {
-    await registerAPI()
-    // console.log(res)
-  }
+  name: 'App'
 }
 </script>
 
