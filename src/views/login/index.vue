@@ -22,7 +22,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="btn-login">登录</el-button>
+          <el-button type="primary" @click="loginFn" class="btn-login">登录</el-button>
           <el-link type="info" @click="$router.push('/register')">去注册</el-link>
         </el-form-item>
       </el-form>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { loginAPI } from '@/api'
 export default {
   name: 'my-login',
   data () {
@@ -59,6 +60,22 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    // 登录->点击事件
+    loginFn () {
+      this.$refs.loginRef.validate(async valid => {
+        if (valid) {
+          // console.log(this.loginForm)
+          const { data: res } = await loginAPI(this.loginForm)
+          // console.log(res)
+          if (res.status !== 0) return this.$message.error(res.message)
+          this.$message.success(res.message)
+        } else {
+          return false
+        }
+      })
     }
   }
 }
