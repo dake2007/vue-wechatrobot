@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import qs from 'qs'
+import store from '@/store'
 /**
  *
  * @param {*} param0 {username:用户名，password:密码}
@@ -35,5 +36,15 @@ export const loginAPI = ({ username, password }) => {
     url: 'api/login',
     method: 'post',
     data: param
+  })
+}
+
+export const getUserInfoAPI = () => {
+  return request({
+    url: '/my/userinfo',
+    headers: {
+      Authorization: store.state.token
+    }
+
   })
 }
