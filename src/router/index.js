@@ -20,14 +20,20 @@ const routes = [
     component: () => import('@/views/login')
   }
 ]
-
+// 浏览器第一次打开项目页面会触发全局前置路由守卫函数
 const router = new VueRouter({ routes })
+const whiteList = ['/login', '/register']
 router.beforeEach((to, from, next) => {
   const token = store.state.token
-  if (token && !store.state.userinfo) {
-    store.dispatch('getUserInfoActions')
-  }
+  if (token) {
+    if (!store.state.userinfo) {
+      store.dispatch('getUserInfoActions')
+    }
+    next()
+  } else {
+    if (whiteList.includes(to.path)) return next()
 
-  next()
+    next('/login')
+  }
 })
 export default router

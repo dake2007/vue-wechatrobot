@@ -4,7 +4,7 @@
     <!-- 登录的盒子 -->
     <div class="login-box">
       <!-- 标题的盒子 -->
-      <div class="title-box"></div>
+      <div class="title-box">wechatrobot后台管理</div>
       <!-- 登录的表单区域 -->
       <el-form :model="loginForm" :rules="loginRules" ref="loginRef">
         <!-- 用户名 -->
@@ -95,7 +95,6 @@ export default {
   .login-box {
     width: 400px;
     height: 335px;
-    background-color: #fff;
     border-radius: 3px;
     position: absolute;
     left: 50%;
@@ -106,11 +105,30 @@ export default {
 
     .title-box {
       height: 60px;
-      background: url('../../assets/images/login_title.png') center no-repeat;
+      font-weight: bold;
+      text-align: center;
+      font-size: 25px;
+      color: aliceblue;
     }
 
     .btn-login {
       width: 100%;
+    }
+    ::v-deep .el-input__inner {
+      background-color: transparent !important;
+    }
+    .el-button--primary:focus,
+    .el-button--primary:hover {
+      background: #5e656d;
+      border-color: #5e757d;
+      color: #fff;
+      opacity: 1;
+    }
+    .el-button--primary {
+      color: #fff;
+      background-color: #4d5257;
+      border-color: #4d6267;
+      opacity: 0.7;
     }
   }
 }
