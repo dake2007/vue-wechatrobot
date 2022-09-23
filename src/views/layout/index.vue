@@ -35,7 +35,15 @@
           <span>欢迎 {{ nickname || username }}</span>
         </div>
         <!-- 侧边栏的导航区域 -->
-        <el-menu default-active="/home" background-color="#23262E" text-color="#fff" active-text-color="#409EFF">
+        <el-menu
+          default-active="/home"
+          @open="handleOpen"
+          @close="handleClose"
+          background-color="#23262E"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          router
+        >
           <!-- 不包含子菜单的“一级菜单” -->
           <el-menu-item index="/home"><i class="el-icon-s-tools"></i>首页</el-menu-item>
           <el-menu-item index="/personal"><i class="el-icon-user-solid"></i>个人中心</el-menu-item>
@@ -129,7 +137,7 @@
       <el-container>
         <!-- 页面主体区域 -->
         <el-main>
-          Main.vue后台主页
+          <router-view></router-view>
         </el-main>
         <!-- 底部 footer 区域 -->
         <el-footer>© www.itheima.com - 黑马程序员</el-footer>
@@ -168,10 +176,15 @@ export default {
             message: '取消退出'
           })
         })
+    },
+
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
     }
-
   }
-
 }
 </script>
 
@@ -231,7 +244,7 @@ export default {
   }
 }
 .el-aside {
-  overflow-y: hidden;
+  overflow-y: scroll;
   .el-submenu,
   .el-menu-item {
     width: 200px;
