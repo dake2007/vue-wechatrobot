@@ -5,6 +5,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    component: () => import('@/views/layout')
+  },
+  {
     path: '/register',
     component: () => import('@/views/register')
     // webpack提供的improt函数来路由懒加载导入组件

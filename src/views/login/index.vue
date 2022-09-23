@@ -76,6 +76,7 @@ export default {
           this.$message.success(res.message)
           // 把token字符串保存到vuex的state中
           this.updateToken(res.token)
+          this.$router.push('/')
         } else {
           return false
         }
