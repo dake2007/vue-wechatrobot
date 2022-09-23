@@ -13,6 +13,10 @@ export default new Vuex.Store({
     userinfo: {}
   },
   getters: {
+    username: state => state.userinfo.username,
+    nickname: state => state.userinfo.nickname,
+    user_pic: state => state.userinfo.user_pic
+
   },
   mutations: {
     // 保存token
