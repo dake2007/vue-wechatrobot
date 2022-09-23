@@ -22,7 +22,7 @@
           <el-menu-item index="1-2"><i class="el-icon-camera"></i>更换头像</el-menu-item>
           <el-menu-item index="1-3"><i class="el-icon-key"></i>重置密码</el-menu-item>
         </el-submenu>
-        <el-menu-item index="2"><i class="el-icon-switch-button"></i>退出</el-menu-item>
+        <el-menu-item index="2" @click="quitFn"><i class="el-icon-switch-button"></i>退出</el-menu-item>
       </el-menu>
     </el-header>
     <el-container>
@@ -42,7 +42,30 @@
 
 <script>
 export default {
-  name: 'my-layout'
+  name: 'my-layout',
+  methods: {
+    quitFn () {
+      this.$confirm('此操作将退出登录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          })
+          this.$store.commit('updateToken', '')
+          this.$router.push('/login')
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消退出'
+          })
+        })
+    }
+  }
 }
 </script>
 
