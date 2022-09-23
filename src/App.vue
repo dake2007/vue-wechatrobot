@@ -5,10 +5,7 @@
 
 <script>
 export default {
-  name: 'App',
-  created () {
-    this.$store.dispatch('getUserInfoActions')
-  }
+  name: 'App'
 }
 </script>
 

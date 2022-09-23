@@ -1,6 +1,6 @@
+import store from '@/store'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,5 +22,12 @@ const routes = [
 ]
 
 const router = new VueRouter({ routes })
+router.beforeEach((to, from, next) => {
+  const token = store.state.token
+  if (token && !store.state.userinfo) {
+    store.dispatch('getUserInfoActions')
+  }
 
+  next()
+})
 export default router
