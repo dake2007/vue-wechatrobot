@@ -67,6 +67,11 @@ export const updateUserInfoAPI = ({ id, nickname, email }) => {
     data: param
   })
 }
+/**
+ *
+ * @param {*} avatar 头像base64
+ * @returns
+ */
 export const updateAvatarAPI = (avatar) => {
   let param = {
     avatar
@@ -78,5 +83,17 @@ export const updateAvatarAPI = (avatar) => {
     method: 'post',
     data: param
 
+  })
+}
+export const resetPwdAPI = (obj) => {
+  let param = {
+    oldPwd: obj.old_pwd,
+    newPwd: obj.new_pwd
+  }
+  param = qs.stringify(param)
+  return request({
+    url: '/my/updatepwd',
+    method: 'post',
+    data: param
   })
 }

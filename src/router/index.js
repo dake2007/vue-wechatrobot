@@ -22,6 +22,11 @@ const routes = [
       {
         path: 'avatar',
         component: () => import('@/views/user/userAvatar.vue')
+      },
+      {
+        path: 'repassword',
+        component: () => import('@/views/user/userPwd.vue')
+
       }
 
     ]
