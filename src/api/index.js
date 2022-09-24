@@ -45,3 +45,17 @@ export const getUserInfoAPI = () => {
 
   })
 }
+export const updateUserInfoAPI = ({ id, nickname, email }) => {
+  let param = {
+    id,
+    nickname,
+    email
+
+  }
+  param = qs.stringify(param)
+  return request({
+    url: '/my/userinfo',
+    method: 'post',
+    data: param
+  })
+}

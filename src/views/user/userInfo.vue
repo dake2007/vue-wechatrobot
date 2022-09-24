@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { updateUserInfoAPI } from '@/api'
 export default {
   name: 'UserInfo',
   data () {
@@ -46,7 +47,20 @@ export default {
     }
   },
   methods: {
-    submitFn () {}
+    // 提交修改的点击事件
+    submitFn () {
+      this.$refs.userFormRef.validate(async valid => {
+        if (valid) {
+          this.userForm.id = this.$store.state.userinfo.id
+          const { data: res } = await updateUserInfoAPI(this.userForm)
+          if (res.status !== 0) return this.$message.error('更新用户失败')
+          this.$message.success('更新成功')
+          this.$store.dispatch('getUserInfoActions')
+        } else {
+          return false
+        }
+      })
+    }
   }
 }
 </script>
