@@ -27,6 +27,10 @@ const routes = [
         path: 'repassword',
         component: () => import('@/views/user/userPwd.vue')
 
+      },
+      {
+        path: 'basic',
+        component: () => import('@/views/article/artCate.vue')
       }
 
     ]

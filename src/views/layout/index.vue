@@ -42,6 +42,7 @@
           background-color="#23262E"
           text-color="#fff"
           active-text-color="#409EFF"
+          unique-opened
           router
         >
           <!-- 不包含子菜单的“一级菜单” -->
@@ -56,16 +57,16 @@
             <el-menu-item index="/repassword"><i class="el-icon-s-custom"></i>修改密码</el-menu-item>
           </el-submenu>
           <!-- 包含子菜单的“一级菜单” -->
-          <el-submenu index="1">
+          <el-submenu index="/pson">
             <template slot="title">
-              <i class="el-icon-star-on"></i>
+              <i class="el-icon-s-custom"></i>
               <span>智能配置</span>
             </template>
-            <el-menu-item index="1-1"><i class="el-icon-star-on"></i>基础配置</el-menu-item>
-            <el-menu-item index="1-2"><i class="el-icon-star-on"></i>关键词回复</el-menu-item>
-            <el-menu-item index="1-3"><i class="el-icon-star-on"></i>关键词事件</el-menu-item>
-            <el-menu-item index="1-4"><i class="el-icon-star-on"></i>回调事件</el-menu-item>
+            <el-menu-item index="/basic"><i class="el-icon-s-custom"></i>基础配置</el-menu-item>
+            <el-menu-item index="/reply"><i class="el-icon-s-custom"></i>关键词回复</el-menu-item>
+            <el-menu-item index="/events"><i class="el-icon-s-custom"></i>关键词事件</el-menu-item>
           </el-submenu>
+
           <el-submenu index="2">
             <template slot="title">
               <i class="el-icon-s-custom"></i>

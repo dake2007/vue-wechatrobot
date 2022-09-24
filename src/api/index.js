@@ -85,6 +85,11 @@ export const updateAvatarAPI = (avatar) => {
 
   })
 }
+/**
+ *
+ * @param {*} obj 修改密码接口
+ * @returns
+ */
 export const resetPwdAPI = (obj) => {
   let param = {
     oldPwd: obj.old_pwd,
@@ -95,5 +100,11 @@ export const resetPwdAPI = (obj) => {
     url: '/my/updatepwd',
     method: 'post',
     data: param
+  })
+}
+export const getArticleAPI = () => {
+  return request({
+    url: 'my/article/cates'
+
   })
 }
