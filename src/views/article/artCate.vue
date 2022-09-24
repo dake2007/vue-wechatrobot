@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix header-box">
         <span>基础配置</span>
-        <el-button type="primary" size="mini">添加配置</el-button>
+        <el-button type="primary" size="mini" @click="addCateBtwFn">添加配置</el-button>
       </div>
       <!-- 分类数据的表格 -->
       <template>
@@ -18,6 +18,14 @@
         </el-table>
       </template>
     </el-card>
+    <!-- 提示对话框 -->
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="canceFn">取 消</el-button>
+        <el-button type="primary" @click="confirmFn">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -27,7 +35,8 @@ export default {
   name: 'ArtCate',
   data () {
     return {
-      cateList: []
+      cateList: [],
+      dialogVisible: false
     }
   },
   created () {
@@ -37,6 +46,16 @@ export default {
     async getArtCateFn () {
       const res = await getArticleAPI()
       this.cateList = res.data.data
+    },
+    // 添加分类按钮点击事件
+    addCateBtwFn () {
+      this.dialogVisible = true
+    },
+    canceFn () {
+      this.dialogVisible = false
+    },
+    confirmFn () {
+      this.dialogVisible = false
     }
   }
 }
