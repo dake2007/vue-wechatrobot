@@ -46,7 +46,14 @@
         >
           <!-- 不包含子菜单的“一级菜单” -->
           <el-menu-item index="/home"><i class="el-icon-s-tools"></i>首页</el-menu-item>
-          <el-menu-item index="/personal"><i class="el-icon-user-solid"></i>个人中心</el-menu-item>
+          <el-submenu index="/my">
+            <template slot="title">
+              <i class="el-icon-s-custom"></i>
+              <span>个人中心</span>
+            </template>
+            <el-menu-item index="/personal"><i class="el-icon-s-custom"></i>基本信息</el-menu-item>
+            <el-menu-item index="/avatar"><i class="el-icon-s-custom"></i>修改头像</el-menu-item>
+          </el-submenu>
           <!-- 包含子菜单的“一级菜单” -->
           <el-submenu index="1">
             <template slot="title">

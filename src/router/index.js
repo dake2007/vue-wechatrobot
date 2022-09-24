@@ -18,6 +18,10 @@ const routes = [
         path: 'personal',
         component: () => import('@/views/user/userInfo.vue')
 
+      },
+      {
+        path: 'avatar',
+        component: () => import('@/views/user/userAvatar.vue')
       }
 
     ]
