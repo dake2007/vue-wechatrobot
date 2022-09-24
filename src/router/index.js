@@ -13,7 +13,13 @@ const routes = [
       {
         path: 'home',
         component: () => import('@/views/home')
+      },
+      {
+        path: 'personal',
+        component: () => import('@/views/user/userInfo.vue')
+
       }
+
     ]
   },
   {

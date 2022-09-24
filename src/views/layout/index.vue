@@ -36,7 +36,7 @@
         </div>
         <!-- 侧边栏的导航区域 -->
         <el-menu
-          default-active="/home"
+          :default-active="$route.path"
           @open="handleOpen"
           @close="handleClose"
           background-color="#23262E"

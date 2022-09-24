@@ -66,7 +66,7 @@ export default {
       axios
         .get('api/data/asset/data/life-expectancy-table.json')
         .then(res => {
-          console.log(res.data)
+          //   console.log(res.data)
           run(res.data)
         })
         .catch(err => {
