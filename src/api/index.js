@@ -38,13 +38,21 @@ export const loginAPI = ({ username, password }) => {
     data: param
   })
 }
-
+/**
+ *
+ * @returns 用户信息
+ */
 export const getUserInfoAPI = () => {
   return request({
     url: '/my/userinfo'
 
   })
 }
+/**
+ *
+ * @param {id,nickname,email} 用户id 用户昵称 用户邮箱
+ * @returns
+ */
 export const updateUserInfoAPI = ({ id, nickname, email }) => {
   let param = {
     id,
@@ -57,5 +65,18 @@ export const updateUserInfoAPI = ({ id, nickname, email }) => {
     url: '/my/userinfo',
     method: 'post',
     data: param
+  })
+}
+export const updateAvatarAPI = (avatar) => {
+  let param = {
+    avatar
+  }
+  param = qs.stringify(param)
+  console.log(param)
+  return request({
+    url: '/my/updata/avatar',
+    method: 'post',
+    data: param
+
   })
 }
