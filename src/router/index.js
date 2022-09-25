@@ -31,6 +31,10 @@ const routes = [
       {
         path: 'basic',
         component: () => import('@/views/article/artCate.vue')
+      },
+      {
+        path: 'reply',
+        component: () => import('@/views/article/artList.vue')
       }
 
     ]

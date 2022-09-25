@@ -102,9 +102,49 @@ export const resetPwdAPI = (obj) => {
     data: param
   })
 }
+/**
+ *
+ * @returns 获取配置分类
+ */
 export const getArticleAPI = () => {
   return request({
-    url: 'my/article/cates'
+    url: 'my/artcate/cates'
+
+  })
+}
+/**
+ *
+ * @param {配置分类的名字，别名} obj 新增配置接口
+ * @returns
+ */
+export const addArtCateAPI = (obj) => {
+  let param = {
+    name: obj.cate_name,
+    alias: obj.cate_alias
+  }
+  param = qs.stringify(param)
+  return request({
+    url: '/my/artcate/addcates',
+    method: 'post',
+    data: param
+  })
+}
+export const setArtCateAPI = (obj) => {
+  let param = {
+    Id: obj.Id,
+    name: obj.cate_name,
+    alias: obj.cate_alias
+  }
+  param = qs.stringify(param)
+  return request({
+    url: '/my/artcate/updatecate',
+    method: 'post',
+    data: param
+  })
+}
+export const deleteArtCateAPI = (id) => {
+  return request({
+    url: '/my/artcate/deletecate/' + id
 
   })
 }
