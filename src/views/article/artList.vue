@@ -27,7 +27,13 @@
         <el-button type="primary" size="small" class="btn-pub" @click="showPubdialogFn">发表文章</el-button>
       </div>
       <!-- 发表文章的 Dialog 对话框 -->
-      <el-dialog title="创建关键词" :visible.sync="pubDialogVisible" fullscreen :before-close="handleClose">
+      <el-dialog
+        title="创建关键词"
+        :visible.sync="pubDialogVisible"
+        fullscreen
+        :before-close="handleClose"
+        @closed="onDialogClosedFn"
+      >
         <!-- 发布文章的对话框 -->
         <el-form :model="pubForm" :rules="pubFormRules" ref="pubFormRef" label-width="100px">
           <el-form-item label="文章标题" prop="title">
@@ -39,7 +45,7 @@
             </el-select>
           </el-form-item>
           <el-form-item lable="文章的内容" prop="content">
-            <quill-editor :options="editorOption" v-model="pubForm.content"></quill-editor>
+            <quill-editor :options="editorOption" v-model="pubForm.content" @change="changeFn"></quill-editor>
           </el-form-item>
           <!-- 封面图片部分 -->
           <el-form-item label="文章封面">
@@ -50,6 +56,10 @@
             <input type="file" style="display: none;" accept="image/*" ref="iptFileRef" @change="changeCoverFn" />
             <!-- 选择封面的按钮 -->
             <el-button type="text" @click="selectCoverFn">+ 选择封面</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="pubArticleFn('已发布')">发布</el-button>
+            <el-button type="info" @click="pubArticleFn('草稿')">存为草稿</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -104,7 +114,8 @@ export default {
         title: '',
         cate_id: '',
         content: '', // 文章的内容
-        cover_img: ''
+        cover_img: '',
+        state: ''
       },
       pubFormRules: {
         // 表单的验证规则对象 发布
@@ -155,6 +166,24 @@ export default {
         const url = URL.createObjectURL(files[0])
         this.$refs.imgRef.setAttribute('src', url)
       }
+    },
+    pubArticleFn (state) {
+      // 设置发布状态
+      this.pubForm.state = state
+      this.$refs.pubFormRef.validate(valids => {
+        if (!valids) return this.$message.error('请选择文章封面！')
+        if (!this.pubForm.cover_img) return this.$message.error('请选择文章封面')
+        console.log(this.pubForm)
+      })
+    },
+    onDialogClosedFn () {
+      this.$refs.pubFormRef.resetFields()
+      this.pubForm.content = ''
+      this.$refs.imgRef.setAttribute('src', defaultImg)
+    },
+    changeFn () {
+      // 富文本编辑器内容改变了触发此事件
+      this.$refs.pubFormRef.validateField('content')
     }
   }
 }

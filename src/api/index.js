@@ -129,6 +129,11 @@ export const addArtCateAPI = (obj) => {
     data: param
   })
 }
+/**
+ *
+ * @param {修改文章分类} obj
+ * @returns
+ */
 export const setArtCateAPI = (obj) => {
   let param = {
     Id: obj.Id,
@@ -142,9 +147,21 @@ export const setArtCateAPI = (obj) => {
     data: param
   })
 }
+/**
+ *
+ * @param {删除文章分类} id
+ * @returns
+ */
 export const deleteArtCateAPI = (id) => {
   return request({
     url: '/my/artcate/deletecate/' + id
 
+  })
+}
+export const uploadArticleAPI = (fd) => {
+  return request({
+    url: '/my/article/add',
+    method: 'post',
+    data: fd
   })
 }
