@@ -41,8 +41,19 @@
           <el-form-item lable="文章的内容" prop="content">
             <quill-editor :options="editorOption" v-model="pubForm.content"></quill-editor>
           </el-form-item>
+          <!-- 封面图片部分 -->
+          <el-form-item label="文章封面">
+            <!-- 用来显示封面的图片 -->
+            <img src="../../assets/images/cover.jpg" alt="" class="cover-img" ref="imgRef" />
+            <br />
+            <!-- 文件选择框，默认被隐藏 -->
+            <input type="file" style="display: none;" accept="image/*" ref="iptFileRef" @change="changeCoverFn" />
+            <!-- 选择封面的按钮 -->
+            <el-button type="text" @click="selectCoverFn">+ 选择封面</el-button>
+          </el-form-item>
         </el-form>
       </el-dialog>
+
       <!-- 文章表格区域 -->
 
       <!-- 分页区域 -->
@@ -53,6 +64,7 @@
 <script>
 import { getArticleAPI } from '@/api'
 import 'quill/dist/quill.snow.css'
+import defaultImg from '@/assets/images/cover.jpg'
 export default {
   name: 'ArtList',
   data () {
@@ -91,7 +103,8 @@ export default {
         // 表单的数据对象 发布
         title: '',
         cate_id: '',
-        content: '' // 文章的内容
+        content: '', // 文章的内容
+        cover_img: ''
       },
       pubFormRules: {
         // 表单的验证规则对象 发布
@@ -126,6 +139,22 @@ export default {
       if (confirmResult === 'cancel') return
       // 确认关闭
       done()
+    },
+    selectCoverFn () {
+      this.$refs.iptFileRef.click() // js来模拟一次点击事件的动作
+    },
+    changeCoverFn (e) {
+      // e.target 拿到出发事件的那个标签（input标签对象的本身）
+      // e.target.files 拿到选择文件的数组
+      const files = e.target.files
+      if (files.length === 0) {
+        this.pubForm.cover_img = null
+        this.$refs.imgRef.setAttribute('src', defaultImg)
+      } else {
+        this.pubForm.cover_img = files[0]
+        const url = URL.createObjectURL(files[0])
+        this.$refs.imgRef.setAttribute('src', url)
+      }
     }
   }
 }
@@ -139,6 +168,11 @@ export default {
   .btn-pub {
     margin-top: 5px;
   }
+}
+.cover-img {
+  width: 400px;
+  height: 280px;
+  object-fit: cover;
 }
 ::v-deep .ql-editor {
   min-height: 300px;
